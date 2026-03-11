@@ -1,0 +1,36 @@
+name: event_companion
+description: "Event Companion - Semester 4 Open Learning Project"
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.11.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Icons for both Android (Material) and iOS (Cupertino) [cite: 55]
+  cupertino_icons: ^1.0.8
+
+  # QR Code Scanning for the Check-in requirement 
+  mobile_scanner: ^5.1.0
+
+  # URL Launcher for the Map integration (Google/Apple Maps) 
+  url_launcher: ^6.3.2
+
+  # Shared Preferences for saving "Favorieten" locally on the device 
+  shared_preferences: ^2.3.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
+
+  # If you plan to add a logo or event images, uncomment the assets section below [cite: 54]
+  # assets:
+  #   - assets/images/
