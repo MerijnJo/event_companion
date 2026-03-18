@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../models/event.dart';
 import '../data/event_repository.dart';
 import 'check_in_screen.dart';
@@ -38,6 +39,7 @@ class EventDetailScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: backgroundColor,
       extendBodyBehindAppBar: true,
+      extendBody: true,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(64),
         child: ClipRRect(
@@ -59,7 +61,7 @@ class EventDetailScreen extends StatelessWidget {
               ),
               title: Text(
                 'Details',
-                style: TextStyle(
+                style: GoogleFonts.manrope(
                   color: primaryColor,
                   fontWeight: FontWeight.bold,
                   fontSize: 18,
@@ -103,7 +105,7 @@ class EventDetailScreen extends StatelessWidget {
       body: SingleChildScrollView(
         padding: EdgeInsets.only(
             top: MediaQuery.of(context).padding.top + 64 + 24,
-            bottom: 140, // Space for the floating bottom bar
+            bottom: 140,
             left: 24,
             right: 24),
         child: Column(
@@ -173,7 +175,7 @@ class EventDetailScreen extends StatelessWidget {
                     const SizedBox(height: 12),
                     Text(
                       event.title,
-                      style: TextStyle(
+                      style: GoogleFonts.manrope(
                         fontSize: 32,
                         fontWeight: FontWeight.w800,
                         height: 1.1,
@@ -220,7 +222,7 @@ class EventDetailScreen extends StatelessWidget {
               children: [
                 Text(
                   'Over dit event',
-                  style: TextStyle(
+                  style: GoogleFonts.manrope(
                     fontSize: 22,
                     fontWeight: FontWeight.w800,
                     color: onSurfaceColor,
@@ -287,10 +289,9 @@ class EventDetailScreen extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFFE4E1ED).withOpacity(0.5)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.02),
+            color: Colors.black.withOpacity(0.04),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -446,7 +447,7 @@ class EventDetailScreen extends StatelessWidget {
                     else
                       Text(
                         'Gratis',
-                        style: TextStyle(
+                        style: GoogleFonts.manrope(
                           fontSize: 24,
                           fontWeight: FontWeight.w800,
                           color: onSurfaceColor,
@@ -500,7 +501,7 @@ class EventDetailScreen extends StatelessWidget {
                           isCheckedIn
                               ? 'Ingecheckt!'
                               : (isRegistered ? 'Check-in scanner' : 'Aanmelden'),
-                          style: const TextStyle(
+                          style: GoogleFonts.manrope(
                             color: Colors.white,
                             fontWeight: FontWeight.w800,
                             fontSize: 16,

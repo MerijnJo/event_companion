@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'screens/event_list_screen.dart';
 
 void main() {
@@ -18,6 +19,7 @@ class EventCompanionApp extends StatelessWidget {
           surface: const Color(0xFFFCF8FE),
           brightness: Brightness.light,
         ),
+        fontFamily: GoogleFonts.inter().fontFamily,
         scaffoldBackgroundColor: const Color(0xFFFCF8FE),
         useMaterial3: true,
         cardTheme: CardThemeData(

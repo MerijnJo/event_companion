@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../data/event_repository.dart';
 import 'event_detail_screen.dart';
 
@@ -66,7 +67,7 @@ class _EventListScreenState extends State<EventListScreen> {
             const SizedBox(height: 4),
             Text(
               label.toUpperCase(),
-              style: TextStyle(
+              style: GoogleFonts.manrope(
                 fontSize: 11,
                 fontWeight: FontWeight.w700,
                 letterSpacing: 0.5,
@@ -81,16 +82,15 @@ class _EventListScreenState extends State<EventListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    String headerTitle = 'Discover\nFuture Events';
-    String headerSubtitle =
-        'Based on your profile IT related events have been selected for you';
+    String headerTitle = 'Upcoming\nin Tilburg';
+    String headerSubtitle = 'Hand-picked tech events for you.';
 
     if (_selectedIndex == 1) {
-      headerTitle = 'Your\nFavorites';
-      headerSubtitle = 'Events you have saved for later';
+      headerTitle = 'Saved\nfor Later';
+      headerSubtitle = 'Your favorite hand-picked events.';
     } else if (_selectedIndex == 2) {
-      headerTitle = 'Your\nRegistrations';
-      headerSubtitle = 'Events you are attending';
+      headerTitle = 'Ready\nto Go';
+      headerSubtitle = 'Events you are currently attending.';
     }
 
     return Scaffold(
@@ -109,9 +109,9 @@ class _EventListScreenState extends State<EventListScreen> {
                 icon: const Icon(Icons.menu, color: Color(0xFF32323B)),
                 onPressed: () {},
               ),
-              title: const Text(
+              title: Text(
                 'Event Companion',
-                style: TextStyle(
+                style: GoogleFonts.manrope(
                   color: Color(0xFF4E45E4),
                   fontWeight: FontWeight.w800,
                   fontSize: 20,
@@ -162,7 +162,7 @@ class _EventListScreenState extends State<EventListScreen> {
                     children: [
                       Text(
                         headerTitle,
-                        style: const TextStyle(
+                        style: GoogleFonts.manrope(
                           fontSize: 36,
                           fontWeight: FontWeight.w800,
                           height: 1.1,
@@ -189,8 +189,8 @@ class _EventListScreenState extends State<EventListScreen> {
                   child: Center(
                     child: Text(
                       _selectedIndex == 1
-                          ? 'Je hebt nog geen favorieten opgeslagen.'
-                          : 'Je hebt je nog nergens voor aangemeld.',
+                          ? 'You haven\'t saved any favorites yet.'
+                          : 'You aren\'t attending any events yet.',
                       style: const TextStyle(color: Color(0xFF5F5E68)),
                     ),
                   ),
@@ -217,11 +217,9 @@ class _EventListScreenState extends State<EventListScreen> {
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(16),
-                            border: Border.all(
-                                color: const Color(0xFFE4E1ED).withOpacity(0.5)),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.black.withOpacity(0.02),
+                                color: Colors.black.withOpacity(0.04),
                                 blurRadius: 10,
                                 offset: const Offset(0, 4),
                               ),
@@ -269,7 +267,7 @@ class _EventListScreenState extends State<EventListScreen> {
                                     const SizedBox(height: 6),
                                     Text(
                                       event.title,
-                                      style: const TextStyle(
+                                      style: GoogleFonts.manrope(
                                         fontSize: 18,
                                         fontWeight: FontWeight.w800,
                                         color: Color(0xFF32323B),
