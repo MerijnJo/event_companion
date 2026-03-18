@@ -13,25 +13,22 @@ class EventCompanionApp extends StatelessWidget {
     return MaterialApp(
       title: 'Event Companion',
       theme: ThemeData(
-        // Apple Blue als primaire kleur
         colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFF007AFF),
-          surface: Colors.white,
+          seedColor: const Color(0xFF4E45E4),
+          surface: const Color(0xFFFCF8FE),
           brightness: Brightness.light,
         ),
-        // De typische iOS lichtgrijze achtergrond
-        scaffoldBackgroundColor: const Color(0xFFF2F2F7),
+        scaffoldBackgroundColor: const Color(0xFFFCF8FE),
         useMaterial3: true,
         cardTheme: CardThemeData(
           color: Colors.white,
           elevation: 0.0,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(16),
           ),
         ),
-        // Transparante AppBars voor een cleanere look
         appBarTheme: const AppBarTheme(
-          backgroundColor: Color(0xFFF2F2F7),
+          backgroundColor: Color(0xFFFCF8FE),
           surfaceTintColor: Colors.transparent,
         ),
       ),
