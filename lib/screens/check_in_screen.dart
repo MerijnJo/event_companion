@@ -1,4 +1,6 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import '../data/event_repository.dart';
 
@@ -36,6 +38,8 @@ class _CheckInScreenState extends State<CheckInScreen> {
         SnackBar(
           content: Text('Succesvol ingecheckt bij ${widget.eventTitle}!'),
           backgroundColor: Colors.green,
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         ),
       );
       Navigator.pop(context);
@@ -44,6 +48,8 @@ class _CheckInScreenState extends State<CheckInScreen> {
         SnackBar(
           content: Text('Ongeldige code. Probeer "event-${widget.eventId}"'),
           backgroundColor: Colors.red,
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         ),
       );
     }
@@ -51,84 +57,207 @@ class _CheckInScreenState extends State<CheckInScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final primaryColor = const Color(0xFF4E45E4);
+    final backgroundColor = const Color(0xFFFCF8FE);
+    final onSurfaceColor = const Color(0xFF32323B);
+
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Check-in'),
+      backgroundColor: backgroundColor,
+      extendBodyBehindAppBar: true,
+      extendBody: true,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(64),
+        child: ClipRRect(
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 16, sigmaY: 16),
+            child: AppBar(
+              backgroundColor: backgroundColor.withOpacity(0.8),
+              elevation: 0,
+              scrolledUnderElevation: 0,
+              leading: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: IconButton(
+                  icon: Icon(Icons.close, color: primaryColor),
+                  style: IconButton.styleFrom(
+                    backgroundColor: const Color(0xFFF6F2FB),
+                  ),
+                  onPressed: () => Navigator.pop(context),
+                ),
+              ),
+              title: Text(
+                'Check-in',
+                style: GoogleFonts.manrope(
+                  color: primaryColor,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                ),
+              ),
+              centerTitle: true,
+            ),
+          ),
+        ),
       ),
-      body: Column(
+      body: Stack(
         children: [
-          Expanded(
-            child: _isScanning
-                ? MobileScanner(
-                    controller: _scannerController,
-                    onDetect: (capture) {
-                      final List<Barcode> barcodes = capture.barcodes;
-                      for (final barcode in barcodes) {
-                        if (barcode.rawValue != null) {
-                          _scannerController.stop();
-                          _onCheckIn(barcode.rawValue!);
-                          break;
-                        }
-                      }
-                    },
-                  )
-                : Padding(
-                    padding: const EdgeInsets.all(24.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Voer de code handmatig in',
-                          style: Theme.of(context).textTheme.titleLarge,
+          if (_isScanning)
+            Positioned.fill(
+              child: MobileScanner(
+                controller: _scannerController,
+                onDetect: (BarcodeCapture capture) {
+                  final List<Barcode> barcodes = capture.barcodes;
+                  for (final barcode in barcodes) {
+                    if (barcode.rawValue != null) {
+                      _scannerController.stop();
+                      _onCheckIn(barcode.rawValue!);
+                      break;
+                    }
+                  }
+                },
+              ),
+            )
+          else
+            Positioned.fill(
+              child: SingleChildScrollView(
+                padding: EdgeInsets.only(
+                  top: MediaQuery.of(context).padding.top + 120,
+                  left: 24,
+                  right: 24,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Voer de code\nhandmatig in',
+                      style: GoogleFonts.manrope(
+                        fontSize: 28,
+                        fontWeight: FontWeight.w800,
+                        color: onSurfaceColor,
+                        height: 1.1,
+                        letterSpacing: -0.5,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 32),
+                    Container(
+                      decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.04),
+                            blurRadius: 10,
+                            offset: const Offset(0, 4),
+                          )
+                        ],
+                      ),
+                      child: TextField(
+                        controller: _codeController,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 16,
                         ),
-                        const SizedBox(height: 16),
-                        TextField(
-                          controller: _codeController,
-                          decoration: const InputDecoration(
-                            border: OutlineInputBorder(),
-                            labelText: 'Event Code',
-                            hintText: 'Bijv. event-1',
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: Colors.white,
+                          hintText: 'Bijv. event-${widget.eventId}',
+                          hintStyle: const TextStyle(color: Color(0xFFB3B0BC)),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(16),
+                            borderSide: BorderSide.none,
+                          ),
+                          contentPadding: const EdgeInsets.all(20),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 24),
+                    SizedBox(
+                      width: double.infinity,
+                      height: 56,
+                      child: ElevatedButton(
+                        onPressed: () => _onCheckIn(_codeController.text),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: primaryColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          elevation: 0,
+                        ),
+                        child: Text(
+                          'Bevestigen',
+                          style: GoogleFonts.manrope(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w800,
+                            color: Colors.white,
                           ),
                         ),
-                        const SizedBox(height: 16),
-                        FilledButton(
-                          onPressed: () => _onCheckIn(_codeController.text),
-                          child: const Text('Check-in bevestigen'),
-                        ),
-                      ],
+                      ),
                     ),
+                  ],
+                ),
+              ),
+            ),
+          
+          // Floating Bottom Toggle
+          Positioned(
+            bottom: 40 + MediaQuery.of(context).padding.bottom,
+            left: 24,
+            right: 24,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(24),
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 16, sigmaY: 16),
+                child: Container(
+                  padding: const EdgeInsets.all(6),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFFCF8FE).withOpacity(0.8),
+                    borderRadius: BorderRadius.circular(24),
+                    border: Border.all(color: Colors.white.withOpacity(0.5)),
                   ),
-          ),
-          Container(
-            padding: const EdgeInsets.all(16),
-            color: Theme.of(context).colorScheme.surface,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                ElevatedButton.icon(
-                  onPressed: () => setState(() => _isScanning = true),
-                  icon: const Icon(Icons.qr_code_scanner),
-                  label: const Text('Scan QR'),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: _isScanning
-                        ? Theme.of(context).colorScheme.primaryContainer
-                        : null,
+                  child: Row(
+                    children: [
+                      Expanded(child: _buildToggleButton(true, Icons.qr_code_scanner, 'Scan QR', primaryColor)),
+                      const SizedBox(width: 8),
+                      Expanded(child: _buildToggleButton(false, Icons.keyboard, 'Handmatig', primaryColor)),
+                    ],
                   ),
                 ),
-                ElevatedButton.icon(
-                  onPressed: () => setState(() => _isScanning = false),
-                  icon: const Icon(Icons.keyboard),
-                  label: const Text('Handmatig'),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: !_isScanning
-                        ? Theme.of(context).colorScheme.primaryContainer
-                        : null,
-                  ),
-                ),
-              ],
+              ),
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildToggleButton(bool forScanning, IconData icon, String label, Color primaryColor) {
+    final isSelected = _isScanning == forScanning;
+    return GestureDetector(
+      onTap: () => setState(() => _isScanning = forScanning),
+      behavior: HitTestBehavior.opaque,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        padding: const EdgeInsets.symmetric(vertical: 14),
+        decoration: BoxDecoration(
+          color: isSelected ? primaryColor : Colors.transparent,
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              icon,
+              color: isSelected ? Colors.white : const Color(0xFF5F5E68),
+              size: 20,
+            ),
+            const SizedBox(width: 8),
+            Text(
+              label,
+              style: GoogleFonts.manrope(
+                fontSize: 14,
+                fontWeight: FontWeight.w700,
+                color: isSelected ? Colors.white : const Color(0xFF5F5E68),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

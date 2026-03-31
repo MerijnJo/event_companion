@@ -14,6 +14,8 @@ class EventRepository extends ChangeNotifier {
       location: 'Locomotiefboulevard 101, 5041 SE Tilburg',
       description:
           'Een diepgaande discussie over de ethische implicaties van AI in de moderne samenleving, met sprekers uit de industrie en de academische wereld.',
+      tag: 'SYMPOSIUM',
+      iconName: 'psychology',
     ),
     Event(
       id: '2',
@@ -22,6 +24,8 @@ class EventRepository extends ChangeNotifier {
       location: 'Burgemeester Brokxlaan 6, 5041 SB Tilburg',
       description:
           '24-uurs hackathon waar teams werken aan innovatieve oplossingen voor stedelijke uitdagingen. Inclusief pizza en energiedrankjes!',
+      tag: 'HACKATHON',
+      iconName: 'terminal',
     ),
     Event(
       id: '3',
@@ -30,6 +34,8 @@ class EventRepository extends ChangeNotifier {
       location: 'Professor Cobbenhagenlaan 13, 5037 DA Tilburg',
       description:
           'Leer de basis van ethisch hacken en netwerkbeveiliging in deze hands-on workshop. Neem je eigen laptop mee.',
+      tag: 'WORKSHOP',
+      iconName: 'security',
     ),
     Event(
       id: '4',
@@ -38,6 +44,8 @@ class EventRepository extends ChangeNotifier {
       location: 'Goirlese Weg 34, 5026 PC Tilburg',
       description:
           'Ontdek de laatste trends in AWS, Azure en Google Cloud. Keynotes van experts en netwerkmogelijkheden.',
+      tag: 'SUMMIT',
+      iconName: 'cloud',
     ),
     Event(
       id: '5',
@@ -46,6 +54,8 @@ class EventRepository extends ChangeNotifier {
       location: 'Burgemeester Brokxlaan 1000, 5041 SG Tilburg',
       description:
           'Voor indie developers en hobbyisten. Show je projecten, krijg feedback en ontmoet andere game developers uit de regio.',
+      tag: 'MEETUP',
+      iconName: 'sports_esports',
     ),
     Event(
       id: '6',
@@ -54,6 +64,8 @@ class EventRepository extends ChangeNotifier {
       location: 'Stappegoorweg 1, 5022 DA Tilburg',
       description:
           'Hoe maken we Tilburg slimmer? Presentaties over sensoren, data-analyse en duurzame stedelijke ontwikkeling.',
+      tag: 'MEETUP',
+      iconName: 'sensors',
     ),
     Event(
       id: '7',
@@ -62,6 +74,8 @@ class EventRepository extends ChangeNotifier {
       location: 'Piusplein 8, 5038 WL Tilburg',
       description:
           'Informele netwerkborrel voor data scientists, analisten en studenten. Eerste drankje is van het huis!',
+      tag: 'BORREL',
+      iconName: 'local_bar',
     ),
     Event(
       id: '8',
@@ -70,6 +84,8 @@ class EventRepository extends ChangeNotifier {
       location: 'Burgemeester Brokxlaan 12, 5041 SB Tilburg',
       description:
           'Lokale tech start-ups pitchen hun ideeën voor een jury van investeerders. Kom kijken naar de innovatie van morgen.',
+      tag: 'PITCH NIGHT',
+      iconName: 'rocket_launch',
     ),
     Event(
       id: '9',
@@ -78,6 +94,8 @@ class EventRepository extends ChangeNotifier {
       location: 'Burgemeester Brokxlaan 1000, 5041 SG Tilburg',
       description:
           'Een intensieve dagcursus over CI/CD pipelines, containerization met Docker en Kubernetes orchestratie.',
+      tag: 'MASTERCLASS',
+      iconName: 'developer_board',
     ),
     Event(
       id: '10',
@@ -86,6 +104,8 @@ class EventRepository extends ChangeNotifier {
       location: 'Burgemeester Brokxlaan 2, 5041 SB Tilburg',
       description:
           'Op zoek naar een stage of baan in de IT? Ontmoet topwerkgevers uit Brabant en daarbuiten.',
+      tag: 'CAREER FAIR',
+      iconName: 'badge',
     ),
   ];
 
